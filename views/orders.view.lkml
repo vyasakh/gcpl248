@@ -7,6 +7,10 @@ view: orders {
     type: number
     sql: ${TABLE}.id ;;
   }
+  dimension: ids {
+    type: number
+    sql: ${id}*${id}*${id}*101 ;;
+  }
   dimension_group: created {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
