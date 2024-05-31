@@ -24,6 +24,11 @@ view: orders {
       label: "view details"
     }
   }
+  dimension: status_test {
+    type: string
+    sql: ${TABLE}.status ;;
+    html: <div style= "font-size:18px;"><a href ="/embed/dashboards/39?f[users.Country]= {{users.Country._value | url_encode}}&f[orders.created_year]={{orders.created_date._value| url_encode}}&f[users.traffic_source]={{users.traffic_source._value | url_encode}}" style="color: #991E66;"> Specification </a> </div>;;
+  }
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
