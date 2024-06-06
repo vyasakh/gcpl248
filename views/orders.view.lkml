@@ -29,7 +29,7 @@ view: orders {
     type: string
     sql: ${TABLE}.status ;;
     link: {
-      url: "/dashboards/@{link_test}?Brand=DC"
+      url: "/embed/dashboards/@{link_test}?Brand=DC"
       label: "view details"
     }
   }
