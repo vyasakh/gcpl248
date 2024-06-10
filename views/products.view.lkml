@@ -1,6 +1,7 @@
 view: products {
   sql_table_name: thelook.products ;;
   drill_fields: [id]
+  label: "products"
 
   dimension: id {
     primary_key: yes
@@ -8,14 +9,17 @@ view: products {
     sql: ${TABLE}.id ;;
   }
   dimension: brand {
+    label: "brand"
     type: string
     sql: ${TABLE}.brand ;;
   }
   dimension: category {
+    label: "category"
     type: string
     sql: ${TABLE}.category ;;
   }
   dimension: department {
+    label: "department"
     type: string
     sql: ${TABLE}.department ;;
   }
