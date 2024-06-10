@@ -20,14 +20,15 @@ explore: inventory_items {
 
 
 explore: order_items {
-  conditionally_filter: {
-    filters: [order_items.created_year: "2018"]
+  label: "order_items"
+  # conditionally_filter: {
+  #   filters: [order_items.created_year: "2018"]
 
-    filters: [order_items.created_month_name: "June"]
+  #   filters: [order_items.created_month_name: "June"]
 
-   unless: [users.country]
-  }
-  sql_always_where: 1=1 ;;
+  # unless: [users.country]
+  # }
+  # sql_always_where: 1=1 ;;
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
