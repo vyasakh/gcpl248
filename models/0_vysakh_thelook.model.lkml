@@ -22,7 +22,7 @@ explore: inventory_items {
 
 
 explore: order_items {
-  label: "order_items"
+  label: "order items"
   # conditionally_filter: {
   #   filters: [order_items.created_year: "2018"]
 
