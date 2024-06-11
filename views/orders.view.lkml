@@ -22,6 +22,9 @@ view: orders {
     link: {
       url: "/embed/dashboards/39?f[users.Country]= {{users.Country._value | url_encode}}&f[orders.created_year]={{orders.created_date._value| url_encode}}&f[users.traffic_source]={{users.traffic_source._value | url_encode}}"
       label: "view details"
+      # Checking if drill to dashboard 20 with a model the embed user has no access to results in same repro.
+      # Cookieless Embedded Page loads while tile shows "trouble loading data" not "Content could not be displayed"
+      # url: "/embed/dashboards/20?f[users.Country]= {{users.Country._value | url_encode}}&f[orders.created_year]={{orders.created_date._value| url_encode}}&f[users.traffic_source]={{users.traffic_source._value | url_encode}}"
     }
   }
   dimension: status_test {
