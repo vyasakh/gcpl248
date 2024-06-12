@@ -2,9 +2,12 @@ connection: "thelook_mysql"
 
 # include all the views
 include: "/views/**/*.view.lkml"
-include: "/der_test.view.lkml"
 
-include: "/FFF.dashboard.lookml"
+access_grant: is_internal_only {
+  user_attribute: is_internal
+  allowed_values: ["true"]
+}
+
 
 datagroup: 0_vysakh_thelook_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -21,13 +24,7 @@ explore: inventory_items {
   }
 }
 
-explore: der_test {
-  join: users {
-    type: left_outer
-    relationship: many_to_many
-    sql_on: ${users.id}=${der_test.id} ;;
-  }
-}
+
 explore: order_items {
   label: "order items"
   # conditionally_filter: {
@@ -69,6 +66,8 @@ explore: orders {
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
+  required_access_grants: [is_internal_only]
+  always_filter: {filters: [orders.timegrain: "MONTH"]}
 }
 
 explore: products {}
