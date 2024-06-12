@@ -2,6 +2,7 @@ connection: "thelook_mysql"
 
 # include all the views
 include: "/views/**/*.view.lkml"
+include: "/der_test.view.lkml"
 
 datagroup: 0_vysakh_thelook_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -18,7 +19,7 @@ explore: inventory_items {
   }
 }
 
-
+explore: der_test {}
 explore: order_items {
   join: orders {
     type: left_outer

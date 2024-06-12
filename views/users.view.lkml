@@ -24,6 +24,14 @@ view: users {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.created_at ;;
+
+  }
+  dimension: dd {
+    type: date
+    # sql: ${created_date} ;;
+    sql:STR_TO_DATE(DATE_FORMAT(${TABLE}.created_at, '%Y%m%d'), '%Y%m%d')  ;;
+    html:  {{ rendered_value | date: "%b %d, %Y" }} ;;
+    order_by_field: created_date
   }
   dimension: email {
     type: string
@@ -64,5 +72,13 @@ view: users {
   measure: count {
     type: count
     drill_fields: [id, last_name, first_name, orders.count]
+  }
+  parameter: date_granularity {
+    type: unquoted
+    allowed_value: { label: "Daily" value: "date" }
+    allowed_value: { label: "Weekly" value: "week" }
+    allowed_value: { label: "Monthly" value: "month" }
+    allowed_value: { label: "Quarterly" value: "quarter" }
+    allowed_value: { label: "Yearly" value: "year" }
   }
 }
