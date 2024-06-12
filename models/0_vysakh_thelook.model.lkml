@@ -21,7 +21,13 @@ explore: inventory_items {
   }
 }
 
-explore: der_test {}
+explore: der_test {
+  join: users {
+    type: left_outer
+    relationship: many_to_many
+    sql_on: ${users.id}=${der_test.id} ;;
+  }
+}
 explore: order_items {
   label: "order items"
   # conditionally_filter: {
