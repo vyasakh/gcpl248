@@ -13,9 +13,17 @@ view: orders {
   }
   dimension_group: created {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, quarter, year,second]
     sql: ${TABLE}.created_at ;;
   }
+
+
+  dimension: my_time{
+    type: date_time
+    sql: ${created_second} ;;
+    value_format: "hh:mm:ss"
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
@@ -31,6 +39,19 @@ view: orders {
   }
   measure: count {
     type: count
+    filters: [created_quarter: "2015-Q1"]
     drill_fields: [id, users.last_name, users.first_name, users.id, order_items.count]
+  }
+
+  measure: trial {
+    type: number
+    sql: if(${count}=0,null,${count}) ;;
+  }
+
+  measure: completed_count {
+    type: count_distinct
+    sql: ${id} ;;
+    filters: [status: "complete"]
+    drill_fields: [id]
   }
 }

@@ -25,6 +25,23 @@ view: users {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.created_at ;;
   }
+
+  dimension: end {
+    type: date_time
+    sql: ${created_time} ;;
+    # html: {{ rendered_value | date: "%c" }};;
+
+  }
+
+  measure: average_handling_time_minutes {
+    type: number
+    # sql: safe_divide(ROUND(${end}),${age})/86400;;
+    sql: (ROUND(${end})/${age})/86400 ;;
+    value_format:"[hh]:mm:ss"
+    label: "Average Handling Time in Minutes"
+    description: "Average Handling Time in minutes"
+    }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -56,6 +73,7 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+
   }
   dimension: traffic_source {
     type: string
@@ -65,4 +83,33 @@ view: users {
     type: count
     drill_fields: [id, last_name, first_name, orders.count]
   }
+
+  dimension: dynamic_link {
+    label: "Dynamic Link"
+    type: string
+    sql: ${state} ;;
+    html:
+    {% assign base_url = 'https://gcpl248.cloud.looker.com/dashboards/86' %}
+    {% assign filters = _query.filters %}
+
+    {% assign query_params = '' %}
+    {% for filter in filters %}
+    {% assign filter_name = filter.name %}
+    {% assign filter_value = filter.value %}
+    {% assign encoded_filter = filter_name | url_encode %}
+    {% assign encoded_value = filter_value | url_encode %}
+    {% if forloop.first %}
+    {% assign query_params = query_params | append: encoded_filter | append: '=' | append: encoded_value %}
+    {% else %}
+    {% assign query_params = query_params | append: '&' | append: encoded_filter | append: '=' | append: encoded_value %}
+    {% endif %}
+    {% endfor %}
+
+    {% assign final_url = base_url | append: '?' | append: query_params %}
+    <a href='{{ final_url }}' target='_blank'>Link to Another Explore</a>
+    ;;
+  }
+
+
+
 }

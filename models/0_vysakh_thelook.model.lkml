@@ -2,6 +2,7 @@ connection: "thelook_mysql"
 
 # include all the views
 include: "/views/**/*.view.lkml"
+include: "/grid.dashboard.lookml"
 
 datagroup: 0_vysakh_thelook_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -19,6 +20,7 @@ explore: inventory_items {
 }
 
 explore: order_items {
+  # sql_always_where: ${orders.created_date} >= '2017-01-01' ;;
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;

@@ -12,6 +12,14 @@ view: order_items {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.created_at ;;
   }
+
+  dimension: start {
+    type: date_time
+    sql: ${created_time} ;;
+    # html: {{ rendered_value | date: "%c" }};;
+
+  }
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes
