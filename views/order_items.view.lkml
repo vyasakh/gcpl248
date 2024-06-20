@@ -31,7 +31,7 @@ view: order_items {
   }
   dimension: sale_price {
     type: number
-    sql: ${TABLE}.sale_price ;;
+    sql: is_null(${TABLE}.sale_price,0) ;;
   }
   measure: count {
     type: count
