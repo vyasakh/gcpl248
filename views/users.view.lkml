@@ -4,6 +4,7 @@ view: users {
 
   dimension: id {
     primary_key: yes
+
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -34,6 +35,7 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
   dimension: gender {
+    description: "gender"
     type: string
     sql: ${TABLE}.gender ;;
   }
@@ -62,6 +64,7 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
   measure: count {
+    description: "count of users"
     type: count
     drill_fields: [id, last_name, first_name, orders.count]
   }
