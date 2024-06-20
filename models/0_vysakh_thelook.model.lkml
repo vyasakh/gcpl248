@@ -3,6 +3,12 @@ connection: "thelook_mysql"
 # include all the views
 include: "/views/**/*.view.lkml"
 
+access_grant: is_internal_only {
+  user_attribute: is_internal
+  allowed_values: ["true"]
+}
+
+
 datagroup: 0_vysakh_thelook_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
@@ -20,6 +26,15 @@ explore: inventory_items {
 
 
 explore: order_items {
+  label: "order items"
+  # conditionally_filter: {
+  #   filters: [order_items.created_year: "2018"]
+
+  #   filters: [order_items.created_month_name: "June"]
+
+  # unless: [users.country]
+  # }
+  # sql_always_where: 1=1 ;;
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
@@ -51,6 +66,8 @@ explore: orders {
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
+  required_access_grants: [is_internal_only]
+  always_filter: {filters: [orders.timegrain: "MONTH"]}
 }
 
 explore: products {}
