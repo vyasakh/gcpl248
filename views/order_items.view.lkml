@@ -31,7 +31,7 @@ view: order_items {
   }
   dimension: sale_price {
     type: number
-    sql: is_null(${TABLE}.sale_price,0) ;;
+    sql: ${TABLE}.sale_price ;;
 
   }
 
@@ -54,6 +54,12 @@ view: order_items {
           {% endif %} ;;
     value_format: "$#.00,\" K\""
   }
+
+  measure: sum2 {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]
