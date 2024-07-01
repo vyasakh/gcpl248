@@ -4,6 +4,7 @@ view: users {
 
   dimension: id {
     primary_key: yes
+
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -14,6 +15,7 @@ view: users {
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+    label: "city"
   }
   dimension: country {
     type: string
@@ -42,6 +44,7 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
   dimension: gender {
+    description: "gender"
     type: string
     sql: ${TABLE}.gender ;;
   }
@@ -60,7 +63,20 @@ view: users {
   dimension: postcode {
     type: string
     sql: ${TABLE}.postcode ;;
+
   }
+
+  dimension: get_in_touch {
+    sql: "mailto:rchavan@google.com" ;;
+    html: '<a href="{{ rendered_value }}" target="_blank" rel="noopener noreferrer">Get in touch</a>' ;;
+  }
+
+  dimension: get_in_touch1 {
+    sql: "https://www.youtube.com" ;;
+    html: <a href="{{rendered_value}}" target="_blank" rel="noopener noreferrer">　Get in touch　</a> ;;
+  }
+
+
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
@@ -70,6 +86,7 @@ view: users {
     sql: ${TABLE}.traffic_source ;;
   }
   measure: count {
+    description: "count of users"
     type: count
     drill_fields: [id, last_name, first_name, orders.count]
   }
