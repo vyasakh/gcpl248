@@ -22,6 +22,7 @@ explore: inventory_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+  always_filter: {filters: [id: "1234"]}
 }
 
 
