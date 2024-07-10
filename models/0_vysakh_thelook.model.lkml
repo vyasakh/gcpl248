@@ -66,7 +66,6 @@ explore: orders {
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
-  required_access_grants: [is_internal_only]
   always_filter: {filters: [orders.timegrain: "MONTH"]}
 }
 
