@@ -33,6 +33,15 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
+
+  dimension: parameter_dynamic_id_direct_input {
+    type: number
+    sql: ${TABLE}.{% parameter parameter_id_options_direct_input %} ;;
+  }
+
+  parameter: parameter_id_options_direct_input{
+    type: unquoted
+  }
   measure: count {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]

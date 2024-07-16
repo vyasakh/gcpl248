@@ -20,6 +20,10 @@ explore: inventory_items {
 
 
 explore: order_items {
+  conditionally_filter: {
+  filters: [order_items.created_year: "2018"]
+  unless: [users.country]
+  }
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;

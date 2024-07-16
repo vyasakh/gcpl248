@@ -33,6 +33,10 @@ view: users {
     type: string
     sql: ${TABLE}.first_name ;;
   }
+  filter: filter_on_field_to_hide {
+    type: string
+    sql: {% condition filter_on_field_to_hide %} ${first_name} {% endcondition %} ;;
+  }
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
