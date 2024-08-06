@@ -34,6 +34,16 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
 
   }
+  dimension: test2 {
+    type: string
+    sql: concat(${products.brand} , "<",  ${orders.status}, ">") ;;
+  }
+
+  dimension: test3 {
+    type: string
+    sql: concat(${products.brand} , "<",  ${users.age} , "ghd" , ">") ;;
+  }
+
 
   dimension: sale_price2 {
     type: number
@@ -55,12 +65,7 @@ view: order_items {
     value_format: "$#.00,\" K\""
   }
 
-  measure: sum2 {
-    type: sum
-    sql: ${sale_price} ;;
-  }
-
-  measure: count {
+ measure: count {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]
   }

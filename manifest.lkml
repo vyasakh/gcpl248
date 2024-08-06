@@ -4,4 +4,5 @@ localization_settings: {
   default_locale: fr_FR
  localization_level: permissive
 
+
 }
