@@ -22,6 +22,7 @@ explore: inventory_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+  always_filter: {filters: [id: "1234"]}
 }
 
 
@@ -66,8 +67,7 @@ explore: orders {
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
-  required_access_grants: [is_internal_only]
-  always_filter: {filters: [orders.timegrain: "MONTH"]}
+  always_filter: {filters: [orders.user_id: "MONTH"]}
 }
 
 explore: products {}
