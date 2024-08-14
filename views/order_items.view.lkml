@@ -44,6 +44,14 @@ view: order_items {
     sql: concat(${products.brand} , "<",  ${users.age} , "ghd" , ">") ;;
   }
 
+  dimension: test4 {
+    type: string
+    sql: concat(${products.brand} , "_",  ${users.age} , "ghd" , "_") ;;
+  }
+  dimension: test5 {
+    type: string
+    sql: concat(${products.brand} , " ",  ${users.age} , "ghd" , " ") ;;
+  }
 
   dimension: sale_price2 {
     type: number
