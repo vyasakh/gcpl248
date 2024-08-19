@@ -41,6 +41,7 @@ view: users {
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
+    html:<img src= "https://images.app.goo.gl/869ddqvRkWPav58M6{{ value }}&chs=400x120&cht=lc&chds=a&chm=N,000000,0,1::2,11&chma=40,40,20,20">  ;;
   }
   dimension: gender {
     description: "gender"
