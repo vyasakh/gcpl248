@@ -3,7 +3,11 @@ connection: "thelook_mysql"
 # include all the views
 include: "/views/**/*.view.lkml"
 
-include: "/FFF.dashboard.lookml"
+access_grant: is_internal_only {
+  user_attribute: is_internal
+  allowed_values: ["true"]
+}
+
 
 include: "/Auto-refresh.dashboard.lookml"
 
@@ -28,6 +32,7 @@ explore: inventory_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+  always_filter: {filters: [id: "1234"]}
 }
 
 
@@ -77,6 +82,7 @@ explore: orders {
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
+  always_filter: {filters: [orders.user_id: "MONTH"]}
 }
 
 

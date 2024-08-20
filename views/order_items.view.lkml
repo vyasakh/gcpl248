@@ -32,7 +32,34 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+
   }
+
+  dimension: sale_price2 {
+    type: number
+    sql: ${TABLE}.sale_price ;;
+    html:  {% assign pop_val = sale_price._value %}
+          {% if pop_val > 0 %}
+          <div style='display: inline-block;'>
+          <p style='color: #53b94e; font-size:100%;'>{{ sale_price._rendered_value }}</p>
+          </div>
+          {% elsif pop_val < 0 %}
+          <div style='display: inline-block;'>
+          <p style='color: #d84555; font-size:100%;'>{{ sale_price._rendered_value }}</p>
+          </div>
+          {% else %}
+          <div style='display: inline-block;'>
+          <p style='font-size:100%;'>{{ sale_price._rendered_value }}</p>
+          </div>
+          {% endif %} ;;
+    value_format: "$#.00,\" K\""
+  }
+
+  measure: sum2 {
+    type: sum
+    sql: ${sale_price} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]

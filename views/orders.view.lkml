@@ -15,11 +15,72 @@ view: orders {
     type: number
     sql: ${id}*${id}*${id}*101 ;;
   }
+
+  parameter: item_to_add_up {
+    type: unquoted
+    allowed_value: {
+      label: "Total Sale Price"
+      value: "sale_price"
+    }
+    allowed_value: {
+      label: "Total Cost"
+      value: "cost"
+    }
+    allowed_value: {
+      label: "Total Profit"
+      value: "profit"
+    }
+  }
+
+  parameter: timegrain {
+    type: unquoted
+    hidden: yes
+    description: "Timegrain chosen by user"
+    allowed_value: {
+      label: "Daily"
+      value: "DAY"
+    }
+    allowed_value: {
+      label: "Weekly"
+      value: "ISOWEEK"
+    }
+    allowed_value: {
+      label: "Monthly"
+      value: "MONTH"
+    }
+    allowed_value: {
+      label: "Quarterly"
+      value: "QUARTER"
+    }
+    allowed_value: {
+      label: "Yearly"
+      value: "YEAR"
+    }
+  }
+
+
   dimension_group: created {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.created_at ;;
   }
+  dimension: date1 {
+    type: string
+    sql: ${created_date} ;;
+  }
+
+  dimension: date_timegrained {
+    type: date
+    datatype: date
+    allow_fill: no
+    hidden: no
+    sql:
+      LEAST(${orders.created_date}, CURRENT_DATE() - 1)
+    ;;
+    description: "Human readable format, truncated to the chosen timegrain"
+    label: "Date"
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
