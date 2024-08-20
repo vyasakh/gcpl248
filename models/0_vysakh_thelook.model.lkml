@@ -64,7 +64,7 @@ explore: order_items {
   }
 
   join: products {
-    type: left_outer
+    type: cross
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
@@ -81,6 +81,8 @@ explore: orders {
 
 
 explore: products {}
+
+explore: add_a_unique_name_1723701937{}
 
 explore: sql_runner_query {}
 

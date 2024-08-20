@@ -4,7 +4,7 @@
   layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  refresh: 4 minutes
+  refresh: 2 minutes
   preferred_slug: kFSWLIuUzosePb45oWLXtJ
   elements:
   - name: Table
