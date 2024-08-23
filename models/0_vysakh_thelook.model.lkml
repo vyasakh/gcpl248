@@ -82,7 +82,7 @@ explore: orders {
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
-  always_filter: {filters: [orders.user_id: "MONTH"]}
+  # always_filter: {filters: [orders.user_id: "MONTH"]}
 }
 
 

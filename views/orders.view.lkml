@@ -6,10 +6,10 @@ view: orders {
     # primary_key: yes
     type: string
     sql: ${TABLE}.id ;;
-    link: {
-      label: "Jotform Link"
-      url: "https://jotform.com/={{ value }}"
-    }
+    # link: {
+    #   label: "Jotform Link"
+    #   url: "https://jotform.com/={{ value }}"
+    # }
   }
   dimension: ids {
     type: number
