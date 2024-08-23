@@ -2,9 +2,16 @@ connection: "thelook_mysql"
 
 # include all the views
 include: "/views/**/*.view.lkml"
-include: "/der_test.view.lkml"
 
-include: "/FFF.dashboard.lookml"
+access_grant: is_internal_only {
+  user_attribute: is_internal
+  allowed_values: ["true"]
+}
+
+
+include: "/Auto-refresh.dashboard.lookml"
+
+
 
 datagroup: 0_vysakh_thelook_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -13,31 +20,36 @@ datagroup: 0_vysakh_thelook_default_datagroup {
 
 persist_with: 0_vysakh_thelook_default_datagroup
 
+
+access_grant: test {
+  user_attribute: test_purpose
+  allowed_values: ["0"]
+}
+
 explore: inventory_items {
   join: products {
     type: left_outer
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+  always_filter: {filters: [id: "1234"]}
 }
 
-explore: der_test {
-  join: users {
-    type: left_outer
-    relationship: many_to_many
-    sql_on: ${users.id}=${der_test.id} ;;
-  }
-}
+
 explore: order_items {
-  label: "order items"
+  # label: "order items"
   # conditionally_filter: {
-  #   filters: [order_items.created_year: "2018"]
+  #   filters: [order_items.created_year: " 1 year ago for 1 year"]
 
-  #   filters: [order_items.created_month_name: "June"]
+  #   filters: [order_items.created_month_name: "7 months ago for 7 months"]
+
+  #   filters: [order_items.created_date: "7 days ago for 7 days"]
 
   # unless: [users.country]
   # }
-  # sql_always_where: 1=1 ;;
+
+
+
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
@@ -57,21 +69,30 @@ explore: order_items {
   }
 
   join: products {
-    type: left_outer
+    type: cross
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
 }
 
 explore: orders {
+  hidden: yes
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
+  always_filter: {filters: [orders.user_id: "MONTH"]}
 }
 
+
 explore: products {}
+
+explore: add_a_unique_name_1723701937{}
+
+explore: sql_runner_query {}
+
+explore: derive {}
 
 explore: users {}
 
