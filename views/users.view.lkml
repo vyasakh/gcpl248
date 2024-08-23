@@ -15,6 +15,11 @@ view: users {
     type: string
     sql: ${TABLE}.city ;;
   }
+  dimension: custom20 {
+    type: string
+    sql: ${TABLE}.city ;;
+    html: <p style="width: 500px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" >"Not Found"</p>;;
+  }
   dimension: country {
     type: string
     map_layer_name: countries
@@ -71,7 +76,9 @@ view: users {
   }
   measure: count {
     type: count
-    drill_fields: [id, last_name, first_name, orders.count]
+
+    filters: [city: "Acle"]
+    # drill_fields: [id, last_name, first_name, orders.count]
   }
   parameter: date_granularity {
     type: unquoted

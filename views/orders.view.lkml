@@ -43,6 +43,21 @@ view: orders {
   }
   measure: count {
     type: count
-    drill_fields: [id, users.last_name, users.first_name, users.id, order_items.count]
-  }
+
+    drill_fields: [id,count]
+    link: {
+      label: "Show as grid"
+      url: "@{drt}"
+    }
+    }
+    measure: countdr {
+      type: count
+      drill_fields: [id,count]
+      link: {
+        label: "Show as line chart"
+        url: "@{dr}"
+      }
+      }
+
+
 }
